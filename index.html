@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Alim Demir — Yapay Zeka ve Veri Mühendisliği öğrencisi. Bilgisayarlı görü, derin öğrenme ve RAG projeleri.">
+<title>Alim Demir · Portfolyo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: CV-matched navy sidebar (identity, contact, skills) beside a reading column of project case files. */
+:root{
+  --bg:#F3F6F9; --surface:#FFFFFF; --ink:#13202A; --muted:#55687A; --line:#D9E2EA;
+  --navy:#0A456D; --navy-ink:#EAF2F8; --navy-muted:#A9C3D6; --sky:#1F86BC; --sky-soft:#E3F1F9;
+  --display:"Archivo","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --body:"Source Sans 3","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0C1720; --surface:#13222E; --ink:#E4ECF2; --muted:#93A6B7; --line:#24394A;
+  --navy:#082E4A; --navy-ink:#E4EEF6; --navy-muted:#8FB0C8; --sky:#5AB6E6; --sky-soft:#173247; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0C1720; --surface:#13222E; --ink:#E4ECF2; --muted:#93A6B7; --line:#24394A;
+  --navy:#082E4A; --navy-ink:#E4EEF6; --navy-muted:#8FB0C8; --sky:#5AB6E6; --sky-soft:#173247; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;margin:0}
+a{color:var(--sky);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--sky);outline-offset:2px;border-radius:4px}
+.wrap{display:grid;grid-template-columns:minmax(260px,320px) minmax(0,1fr);min-height:100vh}
+
+/* sidebar */
+aside{background:var(--navy);color:var(--navy-ink);padding:40px 28px;display:flex;flex-direction:column;gap:30px}
+@media (min-width:900px){aside{position:sticky;top:env(safe-area-inset-top,0px);height:100vh;overflow-y:auto}}
+.name{font-family:var(--display);font-weight:700;font-size:34px;line-height:1.05;margin:0;letter-spacing:-.01em}
+.role{margin:10px 0 0;color:var(--navy-muted);font-size:15px}
+.side-h{font-family:var(--display);font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--navy-muted);margin:0 0 10px;padding-bottom:6px;border-bottom:1px solid color-mix(in srgb,var(--navy-ink) 25%,transparent)}
+.contact{display:grid;gap:8px;font-size:15px}
+.contact a{color:var(--navy-ink);text-decoration:none;word-break:break-word}
+.contact a:hover{text-decoration:underline}
+.mail{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.copy{font:inherit;font-size:12px;background:transparent;color:var(--navy-ink);border:1px solid color-mix(in srgb,var(--navy-ink) 40%,transparent);border-radius:999px;padding:1px 10px;cursor:pointer}
+.skills{display:grid;gap:12px;font-size:14.5px}
+.skills b{display:block;font-weight:600;font-size:14px}
+.skills span{color:var(--navy-muted)}
+nav.toc{display:grid;gap:4px;font-size:15px}
+nav.toc a{color:var(--navy-ink);text-decoration:none;opacity:.85}
+nav.toc a:hover{opacity:1;text-decoration:underline}
+
+/* main */
+main{padding-block:48px 64px;padding-inline:clamp(16px,5vw,64px);min-width:0;max-width:1060px}
+section{margin-top:56px}
+section:first-child{margin-top:0}
+h2{font-family:var(--display);font-weight:700;font-size:26px;margin:0 0 6px;text-wrap:balance}
+.h2rule{height:2px;background:var(--line);margin:0 0 22px}
+.lede{font-size:19px;max-width:65ch;margin:0}
+.lede strong{color:var(--sky)}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.fact{font-family:var(--mono);font-size:12.5px;background:var(--sky-soft);color:var(--ink);border-radius:6px;padding:4px 9px}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px 22px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card h3{font-family:var(--display);font-weight:600;font-size:19px;margin:0;line-height:1.25}
+.card .kind{font-size:13px;color:var(--muted);margin:-4px 0 0}
+.card p{margin:0}
+.card dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:15px}
+.card dt{font-weight:600;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px}
+.card dd{margin:0;min-width:0}
+.metrics{display:flex;flex-wrap:wrap;gap:6px}
+.metric{font-family:var(--mono);font-size:12.5px;border:1px solid var(--sky);color:var(--sky);border-radius:6px;padding:2px 8px;font-variant-numeric:tabular-nums}
+.stack{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
+.tag{font-size:12.5px;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:1px 9px;color:var(--muted)}
+.links{display:flex;flex-wrap:wrap;gap:14px;font-size:14.5px}
+
+.list{display:grid;gap:14px}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row h3{font-family:var(--display);font-weight:600;font-size:17px;margin:0}
+.row .when{font-family:var(--mono);font-size:13px;color:var(--muted);white-space:nowrap;padding-top:3px}
+.row .org{grid-column:1/-1;font-style:italic;color:var(--muted);margin:0}
+.row ul,.row p.desc{grid-column:1/-1;margin:6px 0 0}
+.row ul{padding-left:20px}
+.row li{margin:3px 0}
+.compact .row p.desc{margin-top:2px}
+.pub{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+.pub p{margin:0}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:28px}
+ul.plain{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+footer{margin-top:56px;color:var(--muted);font-size:14px}
+
+@media (max-width:899px){
+  .wrap{grid-template-columns:minmax(0,1fr)}
+  aside{padding:32px 20px}
+  nav.toc{display:none}
+  .row{grid-template-columns:minmax(0,1fr)}
+  .row .when{padding-top:0}
+}
+@media (prefers-reduced-motion:no-preference){.card{transition:border-color .15s}.card:hover{border-color:var(--sky)}}
+</style>
+</head>
+<body>
+<div class="wrap" lang="tr">
+<aside>
+  <div>
+    <h1 class="name">Alim Demir</h1>
+    <p class="role">Yapay Zeka ve Veri Mühendisliği, 4. sınıf · Fırat Üniversitesi · İstanbul</p>
+  </div>
+
+  <div>
+    <h2 class="side-h">İletişim</h2>
+    <div class="contact">
+      <div class="mail"><span id="mailtxt">demiralim30@gmail.com</span><button class="copy" id="copyMail" type="button">Kopyala</button></div>
+      <a href="https://www.linkedin.com/in/alim-demir/" target="_blank" rel="noopener">linkedin.com/in/alim-demir</a>
+      <a href="https://github.com/alimdemir" target="_blank" rel="noopener">github.com/alimdemir</a>
+    </div>
+  </div>
+
+  <nav class="toc" aria-label="Bölümler">
+    <a href="#projeler">Projeler</a>
+    <a href="#deneyim">Deneyim</a>
+    <a href="#yarismalar">Yarışmalar</a>
+    <a href="#yayin">Yayın ve sertifikalar</a>
+  </nav>
+
+  <div>
+    <h2 class="side-h">Yetenekler</h2>
+    <div class="skills">
+      <div><b>Yapay zekâ ve derin öğrenme</b><span>Makine öğrenmesi, derin öğrenme, bilgisayarlı görü, NLP, XAI</span></div>
+      <div><b>Üretken YZ ve LLM</b><span>RAG, Agentic RAG, LLM, GAN, difüzyon modelleri, LangChain, MCP</span></div>
+      <div><b>Model mimarileri</b><span>CNN, ViT, Swin Transformer, U-Net, BERT, DINOv3, VideoMAE</span></div>
+      <div><b>MLOps ve altyapı</b><span>Docker, Kubernetes, Coolify, Hetzner</span></div>
+      <div><b>Yazılım ve veritabanı</b><span>Python, Django, WebSocket, WebRTC, MongoDB, ChromaDB, web scraping</span></div>
+    </div>
+  </div>
+</aside>
+
+<main>
+  <section id="ozet">
+    <h2>Hakkımda</h2>
+    <div class="h2rule"></div>
+    <p class="lede">Bilgisayarlı görü, derin öğrenme ve RAG tabanlı dil sistemleri üzerine çalışıyorum. Modelleri eğitmekle kalmayıp <strong>açıklanabilir</strong> hâle getiriyor, web ve veritabanı entegrasyonuyla <strong>çalışan sistemlere</strong> dönüştürüyorum. Sağlık, tarım ve siber güvenlik alanlarında uçtan uca projeler geliştirdim.</p>
+  </section>
+
+  <section id="projeler">
+    <h2>Projeler</h2>
+    <div class="h2rule"></div>
+    <div class="cards">
+      <article class="card">
+        <h3>NodulAI</h3>
+        <p class="kind">Akciğer kanseri teşhisi için klinik karar destek ve segmentasyon sistemi</p>
+        <dl>
+          <dt>Problem</dt><dd>Akciğer BT görüntülerinde nodüllerin tespiti ve sınırlarının çıkarılması.</dd>
+          <dt>Yaklaşım</dt><dd>GAN ve TransRCEduNet3+ ile segmentasyon; Grad-CAM ile model kararlarının açıklanması; nodüllerin 3B görselleştirilmesi.</dd>
+          <dt>Sonuç</dt><dd>Turkcell Yarının Teknoloji Liderleri yarı finalisti. Makale yayın aşamasında.</dd>
+        </dl>
+        <div class="stack"><span class="tag">GAN</span><span class="tag">TransRCEduNet3+</span><span class="tag">Grad-CAM</span><span class="tag">3B görselleştirme</span></div>
+      </article>
+      <article class="card">
+        <h3>DiffusionDet ile küçük nesne tespiti</h3>
+        <p class="kind">Üretici difüzyon modelleriyle nesne tespiti</p>
+        <dl>
+          <dt>Problem</dt><dd>Büyük görüntülerde çok küçük nesnelerin kaçırılması.</dd>
+          <dt>Yaklaşım</dt><dd>SAHI ile dilimlenmiş çıkarım yapan DiffusionDet mimarisi; AdaLN ve Multi-Scale RoI Align entegrasyonları.</dd>
+          <dt>Sonuç</dt><dd>Küçük nesne tespitinde SOTA seviyesine ulaşıldı.</dd>
+        </dl>
+        <div class="stack"><span class="tag">DiffusionDet</span><span class="tag">SAHI</span><span class="tag">AdaLN</span><span class="tag">Multi-Scale RoI Align</span></div>
+      </article>
+      <article class="card">
+        <h3>XAI tabanlı deepfake tespit sistemi</h3>
+        <p class="kind">Video ve görüntü manipülasyonu tespiti (DeepGuard)</p>
+        <dl>
+          <dt>Problem</dt><dd>Sahte video ve görüntülerin güvenilir biçimde ayırt edilmesi.</dd>
+          <dt>Yaklaşım</dt><dd>RetinaFace ile yüz çıkarımı; DINOv3 ve VideoMAE V2 ile uzamsal ve zamansal özellikler; Saliency Maps ve Grad-CAM ile piksel düzeyinde açıklama. FastAPI arka ucu ile web üzerinden video ve görüntü çıkarımı.</dd>
+          <dt>Sonuç</dt><dd>Model kararları görselleştirilebilen uçtan uca bir tespit sistemi.</dd>
+        </dl>
+        <div class="stack"><span class="tag">RetinaFace</span><span class="tag">DINOv3</span><span class="tag">VideoMAE V2</span><span class="tag">FastAPI</span></div>
+      </article>
+      <article class="card">
+        <h3>Türkçe belgeler için Agentic RAG</h3>
+        <p class="kind">AVD Danışmanlık staj projesi</p>
+        <dl>
+          <dt>Problem</dt><dd>Şirket içi Türkçe belgelerden doğru ve kaynak gösteren yanıt üretmek.</dd>
+          <dt>Yaklaşım</dt><dd>BM25 ve multilingual-e5 ile hibrit getirme, bge-reranker ile yeniden sıralama, sorgu yeniden yazma; LangChain Deep Agents ile ajan mimarisi.</dd>
+          <dt>Sonuç</dt><dd>Yanıtlarını kaynaklarıyla birlikte veren ajan tabanlı RAG sistemi.</dd>
+        </dl>
+        <div class="stack"><span class="tag">BM25</span><span class="tag">multilingual-e5</span><span class="tag">bge-reranker</span><span class="tag">LangChain Deep Agents</span></div>
+        <div class="links"><a href="https://github.com/alimdemir/agentic-rag-turkish-docs" target="_blank" rel="noopener">GitHub deposu</a></div>
+      </article>
+      <article class="card">
+        <h3>Çok modlu mülakat destek sistemi</h3>
+        <p class="kind">AVD Danışmanlık staj projesi</p>
+        <dl>
+          <dt>Problem</dt><dd>Mülakat panellerine gerçek zamanlı ve insan denetimli analiz desteği sağlamak.</dd>
+          <dt>Yaklaşım</dt><dd>Django Channels ve WebRTC ile canlı iletişim; faster-whisper ile Türkçe transkript; yüz ifadesi ve ses tonu analizi; Qwen3 ile kanıta bağlı takip soruları. Docker Compose (PostgreSQL 16) ve Kubernetes altyapısı.</dd>
+          <dt>Sonuç</dt><dd>Yüz, ses ve metni birlikte değerlendiren gerçek zamanlı sistem.</dd>
+        </dl>
+        <div class="stack"><span class="tag">Django Channels</span><span class="tag">WebRTC</span><span class="tag">faster-whisper</span><span class="tag">Qwen3</span><span class="tag">Kubernetes</span></div>
+        <div class="links"><a href="https://github.com/alimdemir/m53-multimodal-interview" target="_blank" rel="noopener">Uygulama deposu</a><a href="https://github.com/alimdemir/m53-interview-infra" target="_blank" rel="noopener">Altyapı deposu</a></div>
+      </article>
+      <article class="card">
+        <h3>MCP tabanlı iş fırsatı ajanı</h3>
+        <p class="kind">AVD Danışmanlık staj projesi</p>
+        <dl>
+          <dt>Problem</dt><dd>Dağınık iş ilanlarını karşılaştırılabilir hâle getirip değerlendirmek.</dd>
+          <dt>Yaklaşım</dt><dd>FastMCP ile MCP sunucusu; Qwen3 ile araç çağıran ajan; Hacker News "Who is Hiring?" ilanlarının ortak bir şablona dönüştürülmesi.</dd>
+          <dt>Sonuç</dt><dd>İlanları standart biçimde toplayıp değerlendiren ajan.</dd>
+        </dl>
+        <div class="stack"><span class="tag">MCP</span><span class="tag">FastMCP</span><span class="tag">Qwen3</span></div>
+        <div class="links"><a href="https://github.com/alimdemir/job-opportunity-mcp-agent" target="_blank" rel="noopener">GitHub deposu</a></div>
+      </article>
+      <article class="card">
+        <h3>VEGALUNGAI</h3>
+        <p class="kind">Boğaziçi Üniversitesi, FeedForward Talent 2026</p>
+        <dl>
+          <dt>Problem</dt><dd>Akciğer BT görüntülerinde nodül segmentasyonu.</dd>
+          <dt>Yaklaşım</dt><dd>Veri analizi, ön işleme ve artırım; beş U-Net tabanlı mimarinin eğitilip karşılaştırılması; XAI ile model kararlarının görselleştirilmesi.</dd>
+          <dt>Sonuç</dt><dd>Görüntü yükleyerek analiz yapılabilen web arayüzü. Takım temsilcisi olarak görev aldım.</dd>
+        </dl>
+        <div class="stack"><span class="tag">U-Net</span><span class="tag">XAI</span><span class="tag">Veri artırımı</span></div>
+      </article>
+      <article class="card">
+        <h3>Mevzuat Asistanı</h3>
+        <p class="kind">Fırat Üniversitesi Dijital Dönüşüm ve Yazılım Ofisi</p>
+        <dl>
+          <dt>Problem</dt><dd>Üniversitenin 125’ten fazla yönetmelik ve yönergesine hızlı ve doğru erişim.</dd>
+          <dt>Yaklaşım</dt><dd>Mevzuatın RAG mimarisiyle bir dil modeline bağlanması.</dd>
+          <dt>Sonuç</dt><dd>Seçilen mevzuatı özetleyip önemli maddeleri ve ilgili süreçleri açıklayan asistan.</dd>
+        </dl>
+        <div class="stack"><span class="tag">RAG</span><span class="tag">LLM</span></div>
+      </article>
+      <article class="card">
+        <h3>Osmanlıca metin tabanlı bilgi erişim sistemi</h3>
+        <p class="kind">RAG ve vektör veritabanı</p>
+        <dl>
+          <dt>Problem</dt><dd>Osmanlıca metinlerde anlam temelli arama ve soru-cevap.</dd>
+          <dt>Yaklaşım</dt><dd>On binlerce metin parçasının ChromaDB’de indekslenmesi ve RAG mimarisiyle bağlama duyarlı yanıt üretilmesi.</dd>
+          <dt>Sonuç</dt><dd>Makale yayın aşamasında.</dd>
+        </dl>
+        <div class="stack"><span class="tag">RAG</span><span class="tag">ChromaDB</span></div>
+      </article>
+      <article class="card">
+        <h3>FİTOTEKTAN</h3>
+        <p class="kind">Bitki hastalığı tespiti, yayımlanmış çalışma</p>
+        <dl>
+          <dt>Problem</dt><dd>Tarımsal teşhis için bitki hastalıklarının görüntüden sınıflandırılması.</dd>
+          <dt>Yaklaşım</dt><dd>PlantVillage veri setinde geleneksel CNN, Vision Transformer ve Swin Transformer modellerinin karşılaştırılması.</dd>
+          <dt>Sonuç</dt><dd>En yüksek başarı Swin Transformer ile elde edildi. NATURENGS dergisinde yayımlandı.</dd>
+        </dl>
+        <div class="stack"><span class="tag">CNN</span><span class="tag">ViT</span><span class="tag">Swin Transformer</span></div>
+        <div class="links"><a href="https://dergipark.org.tr/en/pub/naturengs/article/1832476" target="_blank" rel="noopener">Makale</a><a href="https://github.com/alimdemir/plant_disease_detection" target="_blank" rel="noopener">GitHub deposu</a></div>
+      </article>
+      <article class="card">
+        <h3>MBTI kişilik tahmini</h3>
+        <p class="kind">Doğal dil işleme ile sınıflandırma</p>
+        <dl>
+          <dt>Problem</dt><dd>Metinden kişilik tipinin tahmin edilmesi.</dd>
+          <dt>Yaklaşım</dt><dd>Oluşturduğum özgün Türkçe veri seti üzerinde BERT tabanlı sınıflandırma modellerinin eğitimi ve optimizasyonu.</dd>
+          <dt>Sonuç</dt><dd>Türkçe metinler için kişilik tipi sınıflandırıcısı.</dd>
+        </dl>
+        <div class="stack"><span class="tag">BERT</span><span class="tag">NLP</span></div>
+      </article>
+      <article class="card">
+        <h3>Türkiye karayolu trafik kazaları analizi</h3>
+        <p class="kind">MongoDB veritabanı projesi</p>
+        <dl>
+          <dt>Problem</dt><dd>Dağınık PDF raporlarındaki kaza verilerinin analiz edilebilir hâle getirilmesi.</dd>
+          <dt>Yaklaşım</dt><dd>trafik.gov.tr PDF’lerinden pdfplumber ile veri çıkarma; MongoDB’de saklama; Django arka ucu; D3.js ve Chart.js ile harita ve grafikler.</dd>
+          <dt>Sonuç</dt><dd>İllere, kaza türlerine ve nedenlerine göre analiz sunan web uygulaması ve yönetici paneli.</dd>
+        </dl>
+        <div class="stack"><span class="tag">MongoDB</span><span class="tag">Django</span><span class="tag">D3.js</span><span class="tag">pdfplumber</span></div>
+        <div class="links"><a href="https://github.com/alimdemir/mongodb-database-project" target="_blank" rel="noopener">GitHub deposu</a></div>
+      </article>
+      <article class="card">
+        <h3>PHISHBUST</h3>
+        <p class="kind">Sahte web sitesi tespiti, ekip projesi</p>
+        <dl>
+          <dt>Problem</dt><dd>Kimlik avı (phishing) amaçlı sahte web sitelerinin tespit edilmesi.</dd>
+          <dt>Yaklaşım</dt><dd>DNS, WHOIS ve HTML özelliklerinden Random Forest ile sınıflandırma; Django REST Framework arka ucu ve Next.js arayüzü.</dd>
+          <dt>Sonuç</dt><dd>Kullanıcının bir sitenin güvenilirliğini kontrol edebildiği web uygulaması.</dd>
+        </dl>
+        <div class="stack"><span class="tag">Random Forest</span><span class="tag">Django REST</span><span class="tag">Next.js</span></div>
+        <div class="links"><a href="https://github.com/Phishbust" target="_blank" rel="noopener">GitHub</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="deneyim">
+    <h2>Deneyim</h2>
+    <div class="h2rule"></div>
+    <div class="list">
+      <div class="row"><h3>Yapay Zeka Mühendisi Stajyeri</h3><span class="when">Ağu – Eyl 2026</span>
+        <p class="org">AVD Danışmanlık · İstanbul</p>
+        <ul><li>Hetzner üzerinde Coolify ve Kubernetes ile sunucu ve veritabanı altyapısı.</li><li>MCP tabanlı iş fırsatı ajanı ve reranker destekli ajan tabanlı RAG sistemi.</li><li>Gerçek zamanlı çok modlu mülakat analiz sistemi.</li></ul></div>
+      <div class="row"><h3>Yapay Zeka Mühendisi Stajyeri</h3><span class="when">Tem – Ağu 2026</span>
+        <p class="org">Boğaziçi Üniversitesi, FeedForward Talent 2026 · İstanbul</p>
+        <ul><li>VEGALUNGAI projesinde takım temsilciliği ve görev dağılımı.</li><li>Veri analizi, ön işleme ve artırım; beş U-Net mimarisinin karşılaştırılması; XAI ve web arayüzü entegrasyonu.</li></ul></div>
+      <div class="row"><h3>Yapay Zeka Mühendisi Stajyeri</h3><span class="when">Ara 2025 – Tem 2026</span>
+        <p class="org">Fırat Üniversitesi Dijital Dönüşüm ve Yazılım Ofisi (İŞKUR Gençlik Programı) · Elazığ</p>
+        <ul><li>RAG tabanlı Mevzuat Asistanı.</li><li>UBYS üzerinde kullanıcı ve sızma testleri, bulguların raporlanması.</li><li>LabSİS envanter aktarımı ve model geliştirme için veri seti araştırması.</li></ul></div>
+    </div>
+  </section>
+
+  <section id="yarismalar">
+    <h2>Yarışmalar</h2>
+    <div class="h2rule"></div>
+    <div class="list">
+      <div class="row"><h3>TEKNOFEST Bağımlılıklarla Mücadelede Teknolojik Uygulamalar</h3><span class="when">2026 · Finalist</span>
+        <p class="desc">LogOut takımıyla BİYO-KILIF: telefon bağımlılığını GSR ve PPG sensörleriyle algılayıp kullanıcıyı haptik geri bildirimle uyaran akıllı kılıf prototipi. Proje 93 puanla finale kaldı ve TEKNOFEST Güneydoğu’da (Şanlıurfa) sunuldu.</p></div>
+      <div class="row"><h3>Turkcell Yarının Teknoloji Liderleri</h3><span class="when">2026 · Yarı finalist</span>
+        <p class="desc">NodulAI ile yarı finale yükseldi.</p></div>
+    </div>
+  </section>
+
+  <section id="yayin">
+    <h2>Yayın ve sertifikalar</h2>
+    <div class="h2rule"></div>
+    <div class="pub"><p><b>Demir, A.</b>, Sarı, F., Arzu, M., Kaya, M. (2025). <i>Artificial Intelligence-Aided Diagnosis in Agriculture: Plant Disease Classification with Vision Transformer and CNN Models.</i> NATURENGS, 6(2), 22–31. <a href="https://dergipark.org.tr/en/pub/naturengs/article/1832476" target="_blank" rel="noopener">DergiPark</a></p></div>
+    <div class="two" style="margin-top:24px">
+      <div>
+        <h3 style="font-family:var(--display);font-size:17px;margin:0 0 10px">Sertifikalar ve kurslar</h3>
+        <ul class="plain">
+          <li>Talentcoders TechCamp 2026 · Globally Check</li>
+          <li>Veri Analizi Okulu [YZK-402] · YÖK (Marmara, Boğaziçi, İTÜ, ODTÜ)</li>
+          <li>Veri Bilimi ve Makine Öğrenmesi 2026 · Atıl Samancıoğlu</li>
+          <li>Derin Öğrenme 2026 · Atıl Samancıoğlu</li>
+          <li>Machine Learning Specialization · DeepLearning.AI</li>
+          <li>CS231n: Convolutional Neural Networks for Visual Recognition · Stanford Online</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="font-family:var(--display);font-size:17px;margin:0 0 10px">Eğitim ve diller</h3>
+        <ul class="plain">
+          <li><b>Yapay Zeka ve Veri Mühendisliği</b>, Fırat Üniversitesi · Ekim 2023 – Temmuz 2027 (4. sınıf)</li>
+          <li>İngilizce · B1</li>
+          <li>Arapça · A1</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+(function(){
+  var b=document.getElementById('copyMail');
+  if(!b) return;
+  b.addEventListener('click',function(){
+    var t=document.getElementById('mailtxt').textContent;
+    function sel(){var r=document.createRange();r.selectNodeContents(document.getElementById('mailtxt'));var s=window.getSelection();s.removeAllRanges();s.addRange(r);}
+    try{
+      navigator.clipboard.writeText(t).then(function(){b.textContent='Kopyalandı';setTimeout(function(){b.textContent='Kopyala'},1500)},function(){sel()});
+    }catch(e){sel()}
+  });
+})();
+</script>
+</body>
+</html>
